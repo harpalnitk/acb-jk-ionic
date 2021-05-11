@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()">
+        <!-- picture is not compulsory in profile edit -->
+      <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+    <ion-title>New Complaint</ion-title>
+    <ion-buttons slot="primary">
+        <ion-button (click)="onAddComplaint()" [disabled]="!complaintForm.valid">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="onViewSummary()" [disabled]="!complaintForm.valid">
+        <ion-icon name="document-text-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="complaintForm">
+    <ion-grid >
+      <ion-row>
+        <ion-col  size-sm="12">
+          <ion-item>
+            <ion-label position="floating">Title</ion-label>
+            <ion-input 
+            type="text"
+            formControlName="title"
+            required
+            ></ion-input>
+          </ion-item>
+       </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="12">
+        <ion-item>
+          <ion-label position="floating">Description</ion-label>
+       <ion-textarea rows="6"
+       formControlName="desc"
+       ></ion-textarea>
+        </ion-item>  
+        </ion-col>
+      </ion-row>
+
+      <div formArrayName="officials">
+        <ion-row>
+          <ion-col size-sm="12">
+            <ion-item-divider color="secondary" class="ion-text-uppercase">
+              <ion-label>Accused Officials</ion-label>
+            </ion-item-divider>  
+          </ion-col>
+            </ion-row>
+        <div *ngFor="let official of officials.controls; index as i">
+         <ng-container [formGroup]="official">
+          <ion-row>
+            <ion-col size-sm="12">
+        
+            <ion-row>
+              <ion-col size="10">
+                <ion-item>
+                  <ion-label position="floating">{{i+1}}. Name</ion-label>
+                  <ion-input 
+                  type="text"
+                  formControlName="name"
+                  required
+                  ></ion-input>
+                </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button color="danger" size="small" (click)="removeOfficial(i)">X</ion-button>
+          </ion-col>
+          </ion-row>
+          <ion-row *ngIf="officials.controls[i].get('name').errors?.required && officials.controls[i].get('name').touched">
+            <ion-col size-sm="12">
+              <ion-item>
+                <ion-label color="danger" class="ion-text-wrap ion-text-sm">
+                  Name cannot be empty. Write 'Other', if the complaint is against all officials or name is not known.
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+       
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label>Department</ion-label>
+                  <ion-select okText="Okay" 
+                  cancelText="Dismiss" 
+                  formControlName="dept"
+                  placeholder="Select Department"
+                  class="custom-width">
+                    <ion-select-option class="ion-text-wrap ion-text-sm" *ngFor="let d of dept" [value]="d.id">{{d.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+          
+              </ion-col>
+              
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label>Designation</ion-label>
+                  <ion-select okText="Okay" 
+                  cancelText="Dismiss" 
+                  formControlName="desig"
+                  placeholder="Select Designation"
+                  class="custom-width">
+                    <ion-select-option class="ion-text-wrap ion-text-sm" *ngFor="let d of desig" [value]="d.id">{{d.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="officials.controls[i].get('name').touched">
+              <ion-col  size-sm="6" *ngIf="officials.controls[i].get('dept').errors?.required">
+                <ion-item>
+                  <ion-label color="danger" class="ion-text-wrap ion-text-sm">
+                    Please select department of official. Select 'Other', if the department is not known or person is a private party.
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size-sm="6" *ngIf="officials.controls[i].get('desig').errors?.required">
+                <ion-item>
+                  <ion-label color="danger" class="ion-text-wrap ion-text-sm">
+                    Please select designation of official. Select 'Other', if the designation is not known or person is a private party.
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+
+      </ion-col>
+    </ion-row>
+          </ng-container>
+        </div>
+      </div>
+      <ion-row>
+        <ion-col size-sm="12">
+            <ion-button color='primary' size="small" (click)="addOfficial()">Add</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="officials.errors?.required && complaintForm.touched">
+        <ion-col size-sm="12">
+          <ion-item>
+            <ion-label color="danger" class="ion-text-sm">
+              Add Accused Official(s).
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <!-- address row ends  -->
+       <ion-col size-sm="12" class="ion-text-center">
+         <app-image-picker
+         [showPreview]="complaintForm.get('imageURL').value"
+         [inputPath]="'complaints-images'" 
+         (outputImageURL)="onImagePicked($event)"
+         ></app-image-picker>
+       </ion-col>
+     </ion-row>
+      <ion-row>
+        <ion-col size-sm="4" offset-sm="2">
+    <ion-button color='success' expand='block' (click)="onAddComplaint()" [disabled]="!complaintForm.valid">Submit</ion-button>
+       </ion-col>
+      <ion-col size-sm="4">
+      <ion-button color='success' expand='block' (click)="onViewSummary()" [disabled]="!complaintForm.valid">View Summary</ion-button>
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  </ion-content>

@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+<ion-menu-button></ion-menu-button>
+
+</ion-buttons>
+    <ion-title>Complaints</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)='onNewComplaint()'>
+        <!-- slot icon only tells ionic that there is only icone and no label -->
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- ionChange is an event emitted by ionic components not added by us -->
+  <ion-segment value="all" (ionChange)="onFilterUpdate($event)">
+    <ion-segment-button value="all"><ion-label>All</ion-label></ion-segment-button>
+    <ion-segment-button value="open"><ion-label>Open</ion-label></ion-segment-button>
+    <ion-segment-button value="closed"><ion-label>Closed</ion-label></ion-segment-button>
+  </ion-segment>
+  <ion-grid *ngIf="isLoading$ | async">
+    <ion-row>
+      <ion-col     size="12" 
+      size-sm="8" 
+      offset-sm="2" 
+      class="ion-text-center">
+  <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!(isLoading$ | async) && (!(complaints$ | async) || (complaints$ |async).length <= 0)">
+    <ion-row>
+      <ion-col
+      size="12" 
+      size-sm="8" 
+      offset-sm="2" 
+      class="ion-text-center">
+  <ion-text color="warning">There are no complaints submitted by you. Please click on (+) sign to submit new comlaint.</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+   <!-- ION GRID INTERNALLY USES CSS FLEXBOX -->
+   <ion-grid *ngIf="!(isLoading$ | async) && (complaints$ |async)?.length > 0">
+    <!-- <ion-grid fixed> adding fixed will ensure some padding in the left and right of the grid
+      the grid will not take full width -->
+
+
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+
+
+   <ion-virtual-scroll [items]="relevantComplaints$ |async" approxItemHeight="70px">
+    <ion-item 
+    (click)="onViewComplaintDetail(complaint)"
+    detail
+    *virtualItem="let complaint">
+    <!---detail on the ion item add that arrow icon in the list items-->
+      <!-- avatar is circle thumbnail is square -->
+      <!-- SLOTS ARE NOT IONIC FEATURE THEY ARE WEB COMPONENTS FEATURE
+      AND SUPPORTED BY BROWSERS -->
+      <!-- SLOT TELLS WHERE IN ION-ITEM THUMBNAIL WILL BE PLACED
+      START,END OR IF NO SLOT IS GIVEN THEN FLEX -->
+<ion-thumbnail slot="start">
+  <!-- always use ion-image as it loads images lazily
+  that is only when the inage is about to be shown on the screen
+//this.src='src/assets/images/150.png'; -->
+  
+<ion-img [src]="complaint.imageUrl ? complaint.imageUrl : '/assets/images/no_image.png'" (ionError) ="onImgError($event)"></ion-img>
+</ion-thumbnail>
+<ion-label>
+ <h2>{{complaint.title}}</h2>
+ <p>{{complaint.date.toDate() | date: 'mediumDate'}}</p>
+</ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+      </ion-col>
+        </ion-row>
+        <!-- FOR TESTING PURPOSE NEXT AND PREVIOUS BUTTONS REMOVE ROW LATER AND SET SCROLL LEVEL EVENT -->
+        <ion-row>
+          <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+            <ion-button color='success' (click)="prev()" *ngIf="prev$ | async">PREV</ion-button>
+            <ion-button color='success' (click)="next()" *ngIf="next$ | async">NEXT</ion-button>
+           
+          </ion-col></ion-row>
+  </ion-grid>
+</ion-content>

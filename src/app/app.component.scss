@@ -1,0 +1,26 @@
+#side-menu {
+  .menu-header {
+    padding: 5px 15px;
+    background-image: url('../assets/images/misc/material-design-background.jpg');
+    background-size: cover;
+    color: white;
+    .name {
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+    .e-mail {
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+  }
+
+  .menu-list-item {
+    ion-icon {
+      color: #777;
+    }
+    ion-label {
+      color: #999;
+      font-weight: 400;
+    }
+  }
+}

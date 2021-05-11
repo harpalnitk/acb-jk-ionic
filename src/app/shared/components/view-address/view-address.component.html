@@ -1,0 +1,26 @@
+<ion-item-group>
+  <ion-item-divider>
+    <ion-label>Address</ion-label>
+  </ion-item-divider>
+
+  <ion-item>
+    <ion-note slot="start" color="primary">State</ion-note>
+    <ion-label class="ion-text-wrap ion-text-sm">{{state}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-note slot="start" color="primary">District</ion-note>
+    <ion-label class="ion-text-wrap ion-text-sm">{{district}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-note slot="start" color="primary">Tehsil</ion-note>
+    <ion-label class="ion-text-wrap ion-text-sm">{{tehsil}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-note slot="start" color="primary">Address</ion-note>
+    <ion-label class="ion-text-wrap ion-text-sm">{{profile?.address?.address}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-note slot="start" color="primary">Pincode</ion-note>
+    <ion-label>{{profile?.address?.pincode}}</ion-label>
+  </ion-item>
+</ion-item-group>

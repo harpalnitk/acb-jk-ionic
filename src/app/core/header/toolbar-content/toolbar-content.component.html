@@ -1,0 +1,26 @@
+<!-- <ion-button>
+  <ion-icon
+    *ngIf="!(this.isAuth$ | async)"
+    slot="icon-only"
+    name="person-circle"
+  ></ion-icon>
+  <ion-avatar *ngIf="this.isAuth$ | async">
+    <img [src]="(user$ | async)?.photoURL" />
+  </ion-avatar>
+</ion-button>
+<ion-button (click)="clickedSearch()">
+  <ion-icon slot="icon-only" name="search"></ion-icon>
+</ion-button> -->
+
+<ion-item lines="none">
+  <ion-button slot="end" *ngIf="!(this.isAuth$ | async)">
+    <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+  </ion-button>
+
+  <ion-avatar slot="end" *ngIf="this.isAuth$ | async">
+    <img [src]="(user$ | async)?.photoURL" />
+  </ion-avatar>
+  <ion-button (click)="clickedSearch()">
+    <ion-icon slot="icon-only" name="search"></ion-icon>
+  </ion-button>
+</ion-item>

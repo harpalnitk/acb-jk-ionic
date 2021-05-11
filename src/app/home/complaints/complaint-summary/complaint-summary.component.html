@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()">
+        <!-- picture is not compulsory in profile edit -->
+      <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+    <ion-title>Complaint Summary</ion-title>
+    <ion-buttons slot="primary">
+        <ion-button (click)="onSubmit()">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col 
+      size-sm="12" 
+     
+      class="ion-text-center" >
+      <ion-card>
+       <ion-card-header>
+         <ion-card-title>
+          <ion-item>
+            <ion-note slot="start" color="primary">Title: </ion-note>
+            <ion-label class="ion-text-wrap ion-text-sm">{{title}}</ion-label>
+          </ion-item>
+         </ion-card-title>
+         <ion-card-subtitle>
+          Submitted On : {{date | date:'mediumDate'}}
+         </ion-card-subtitle>
+       </ion-card-header>
+       <ion-img  class="profile-image" [src]="imageUrl ? imageUrl  : 'https://via.placeholder.com/150'"></ion-img>
+       <ion-card-content>
+        <ion-item lines="none">
+          <ion-note slot="start" color="primary">Description: </ion-note>
+        </ion-item>  
+        <ion-item lines="none">
+          <ion-label class="ion-text-wrap ion-text-sm ion-text-justify ion-text-left">{{desc}}</ion-label>
+        </ion-item>
+   <ion-list>
+
+   
+     <ion-item-group>
+       <ion-item-divider color="secondary">
+         <ion-label>Accused Officials</ion-label>
+       </ion-item-divider>
+       <ion-item *ngFor="let o of officials; index as i">
+        <app-view-official [official]="o" [index]="i"></app-view-official>
+       </ion-item>
+     </ion-item-group>
+     <ion-item-divider color="secondary">
+      <ion-label >Complainant's Detail: </ion-label>
+    </ion-item-divider>
+    <app-view-contact *ngIf="profile" [profile]="profile"></app-view-contact>
+     <app-view-address *ngIf="profile" [profile]="profile"></app-view-address>
+   </ion-list>
+     <ion-button  color="success" (click)="onSubmit()">Submit</ion-button>
+     <ion-button  color="primary" (click)="onClose()">Back</ion-button>
+       </ion-card-content>
+     </ion-card>
+     </ion-col>
+    </ion-row>
+     </ion-grid>
+</ion-content>

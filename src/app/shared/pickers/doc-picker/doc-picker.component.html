@@ -1,0 +1,38 @@
+<div class="doc-picker ion-text-center">
+  <ion-progress-bar *ngIf="uploading" type="indeterminate"></ion-progress-bar>
+  <input
+    *ngIf="!uploading && !fileName"
+    type="file"
+    accept="image/jpeg"
+    #filePicker
+    (change)="onFileChosen($event)"
+    class="inputfile"
+    id="file"
+    accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,pdf"
+  />
+  <label
+    for="file"
+    *ngIf="!uploading && !fileName"
+    class="ion-activatable ripple-parent"
+  >
+    Choose a file
+    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+  </label>
+  <div class="ion-text-wrap" *ngIf="!uploading && fileName">
+    <h5 color="light">
+      Uploaded <ion-text color="medium">{{ fileExt }}</ion-text> File of Size:
+      <ion-text color="medium">{{ fileSize }}Kb</ion-text>. Press ADD to save
+      changes.
+    </h5>
+  </div>
+
+  <h3 *ngIf="typeError">
+    <ion-text color="danger">Only PDF/DOC files accepted</ion-text>
+  </h3>
+
+  <h3 *ngIf="sizeError">
+    <ion-text color="danger"
+      >Only files less than 2Mb in size accepted</ion-text
+    >
+  </h3>
+</div>

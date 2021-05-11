@@ -1,0 +1,102 @@
+
+<div [formGroup]="form">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-item>
+          <ion-label position="floating">State</ion-label>
+          <ion-input 
+          type="text"
+          formControlName="state"
+          ></ion-input>
+        </ion-item> -->     
+        <ion-list>
+          <ion-list-header>
+            <ion-label>
+              Select State
+            </ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>State</ion-label>
+            <ion-select okText="Okay" 
+            cancelText="Dismiss" 
+            formControlName="state"
+            (ionChange)="loadDistrict($event.target.value)">
+              <ion-select-option *ngFor="let s of states" [value]="s.id">{{s.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header>
+            <ion-label>
+              Select District
+            </ion-label>
+          </ion-list-header>
+        <ion-item>
+          <ion-label>District</ion-label>
+          <ion-select okText="Okay" 
+          cancelText="Dismiss" 
+          formControlName="district"
+          (ionChange)="loadTehsil($event.target.value)">
+            <ion-select-option *ngFor="let d of districts" [value]="d.id">{{d.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item *ngIf="!tehsilsPresent">
+          <ion-label position="floating">Tehsil</ion-label>
+          <ion-input 
+          type="text"
+          formControlName="tehsil"
+          ></ion-input>
+        </ion-item>
+        <ion-list *ngIf="tehsilsPresent">
+          <ion-list-header>
+            <ion-label>
+              Select Tehsil
+            </ion-label>
+          </ion-list-header>
+        <ion-item>
+          <ion-label>Tehsil</ion-label>
+          <ion-select okText="Okay" 
+          cancelText="Dismiss" 
+          formControlName="tehsil">
+            <ion-select-option *ngFor="let t of tehsils" [value]="t.id">{{t.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Address</ion-label>
+       <ion-textarea rows="3"
+       formControlName="address"
+       ></ion-textarea>
+        </ion-item> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Pin Code</ion-label>
+          <ion-input 
+          type="number"
+          formControlName="pincode"
+          maxlength="7"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</div>

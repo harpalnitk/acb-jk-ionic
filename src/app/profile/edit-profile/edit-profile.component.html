@@ -1,0 +1,162 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- TODO Change it to cancel button -->
+      <ion-buttons slot="start">
+        <ion-button (click)="onClose()">
+          <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title>Edit-Profile</ion-title>
+    <ion-buttons slot="primary">
+      <!-- <ion-button (click)="onEditProfile()" [disabled]="!profileForm.valid || !profileForm.get('image').value"> -->
+      <ion-button (click)="onEditProfile()" [disabled]="!profileForm.valid">
+        <!-- picture is not compulsory in profile edit -->
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="profileForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Display Name</ion-label>
+            <ion-input type="text" formControlName="displayName"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input type="text" formControlName="firstName"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input type="text" formControlName="lastName"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-list>
+            <ion-radio-group formControlName="gender">
+              <ion-list-header>
+                <ion-label> Gender </ion-label>
+              </ion-list-header>
+              <ion-item *ngFor="let gender of genders">
+                <ion-label>{{ gender.viewValue }}</ion-label>
+                <ion-radio [value]="gender.value"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating"
+              >Short Description About Yourself</ion-label
+            >
+            <ion-textarea rows="3" formControlName="about"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row
+        *ngIf="
+          !profileForm.get('about').valid && profileForm.get('about').touched
+        "
+      >
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-text>Description must be between 1 and 180 characters.</ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <div formGroupName="contact">
+            <div formArrayName="phones">
+              <ion-button
+                (click)="onAddPhone()"
+                color="success"
+                size="small"
+                type="button"
+                fill="solid"
+                >Add Phone</ion-button
+              >
+              <!--  phone row start -->
+              <ion-grid>
+                <div *ngFor="let phoneCntrl of phones?.controls; let i = index">
+                  <!-- individual phone row start -->
+                  <ion-row>
+                    <ion-col size="10">
+                      <ion-item>
+                        <ion-label position="floating"
+                          >Phone {{ i + 1 }}:
+                        </ion-label>
+                        <ion-input
+                          type="text"
+                          [formControlName]="i"
+                          required
+                          maxlength="20"
+                        ></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="2">
+                      <ion-button
+                        (click)="onDeletePhone(i)"
+                        color="danger"
+                        size="small"
+                        type="button"
+                        >X</ion-button
+                      >
+                    </ion-col>
+                  </ion-row>
+                  <!-- individual phone row start -->
+                </div>
+              </ion-grid>
+              <!--  phone row start -->
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- address row starts  -->
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <app-region-picker></app-region-picker>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <!-- address row ends  -->
+        <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+          <app-image-picker
+            [showPreview]="profileForm.get('photoURL').value"
+            [inputPath]="'profile'"
+            (outputImageURL)="onImagePicked($event)"
+          ></app-image-picker>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <!-- address row ends  -->
+        <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+          <ion-button
+            expand="block"
+            color="success"
+            (click)="onEditProfile()"
+            [disabled]="!profileForm.valid"
+            >Save</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

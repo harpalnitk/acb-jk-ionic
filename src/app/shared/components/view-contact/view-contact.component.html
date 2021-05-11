@@ -1,0 +1,18 @@
+<ion-item>
+  <ion-note slot="start" color="primary">First Name</ion-note>
+  <ion-label>{{firstName}}</ion-label>
+</ion-item>
+<ion-item>
+  <ion-note slot="start" color="primary">Last Name</ion-note>
+  <ion-label> {{lastName}}</ion-label>
+</ion-item>
+
+<ion-item-group>
+  <ion-item-divider>
+    <ion-label>Contact</ion-label>
+  </ion-item-divider>
+  <ion-item>
+    <ion-note slot="start" color="primary">Mobile</ion-note>
+    <ion-label class="ion-text-wrap ion-text-sm">{{phones | arrayToStringWithDelimiter: ', '}}</ion-label>
+  </ion-item>
+</ion-item-group>

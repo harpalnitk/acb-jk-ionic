@@ -1,0 +1,77 @@
+<ion-app>
+  <!-- side menu will be opened as an overlay over whatever page is their
+  in this router outlet -->
+  <ion-menu side="start" menuId="m1" contentId="main-content" id="side-menu">
+    <!-- <ion-header>
+      <ion-toolbar>
+        <ion-title> ACB,J&K </ion-title>
+      </ion-toolbar>
+    </ion-header> -->
+    <div class="menu-header" *ngIf="!(isAuth$ | async)">
+      <ion-avatar>
+        <ion-img
+          [src]="placeholderAvatar"
+          onerror="this.src='assets/images/avatar/girl-avatar.png'"
+        ></ion-img>
+      </ion-avatar>
+      <p class="name">Guest</p>
+    </div>
+
+    <div class="menu-header" *ngIf="isAuth$ | async">
+      <ion-avatar>
+        <ion-img [src]="(user$ | async)?.photoURL"></ion-img>
+      </ion-avatar>
+      <p class="name">{{ (user$ | async)?.displayName }}</p>
+      <p class="e-mail">{{ (user$ | async)?.email }}</p>
+    </div>
+    <ion-content>
+      <ion-list lines="none">
+        <!-- now clicking on these don't close overlay menu 
+      two options
+    1. add click listener and in ts file close menu using menucontroller
+  2. use <ion-menu-toggle>
+    anything inside ion-menu-toggle will toggle the menu
+  -->
+        <ng-container *ngFor="let menu of menuList" [ngSwitch]="menu.auth">
+          <ion-menu-toggle menuId="m1" *ngSwitchCase="'true'">
+            <ion-item [routerLink]="menu.routerLink" class="menu-list-item" *ngIf="(isAuth$ | async)">
+              <ion-icon [name]="menu.iconName" slot="start"></ion-icon>
+              <ion-label>{{ menu.label }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle menuId="m1" *ngSwitchCase="'false'">
+            <ion-item [routerLink]="menu.routerLink" class="menu-list-item" *ngIf="!(isAuth$ | async)">
+              <ion-icon [name]="menu.iconName" slot="start"></ion-icon>
+              <ion-label>{{ menu.label }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle menuId="m1" *ngSwitchDefault>
+            <ion-item [routerLink]="menu.routerLink" class="menu-list-item">
+              <ion-icon [name]="menu.iconName" slot="start"></ion-icon>
+              <ion-label>{{ menu.label }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ng-container>
+
+        <ion-menu-toggle menuId="m1" *ngIf="isAuth$ | async">
+          <!-- button to add ripple animation -->
+          <ion-item (click)="onLogout()" button class="menu-list-item">
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <!-- WE NEED TO ADD THIS TO THE PAGE WHERE WE WANT TO SEE THE MENU BUTTON 
+<ion-buttons slot="start">
+  <ion-menu-button menu="m1"></ion-menu-button>
+</ion-buttons> 
+
+-->
+
+  <!-- contentId and id needs to be added to router ion-router-outlet
+  because ionic will look for main tag to render the 
+  main page when the menu is closed -->
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-app>

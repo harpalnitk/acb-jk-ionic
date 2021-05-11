@@ -1,0 +1,29 @@
+// ion-avatar {
+//   // max-width: 1.2rem;
+//   max-height: 1.2rem;
+// }
+
+ion-item {
+  --background: --var(ion-color-primary);
+  // h2 {
+  //   font-weight: bold;
+  //   font-size: 20px;
+  //   color: #ffffff;
+  // }
+  ion-icon,
+  ion-avatar {
+    cursor: pointer;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+  }
+  ion-avatar:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  ion-avatar:active {
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(0.9);
+  }
+}

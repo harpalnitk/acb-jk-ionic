@@ -1,0 +1,63 @@
+set android home
+
+C:>set ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+
+C:> set ANDROID_SDK_ROOT=C:\Users\HP\AppData\Local\Android\Sdk
+
+android sdk will be in C:\Users\HP\AppData\Local\Android\Sdk
+
+
+then set all these paths in environment variables
+
+# avdmanager, sdkmanager
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
+
+# adb, logcat
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+
+# emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+
+
+then run ng build to build your project
+
+then run > ionic capacitor add android  
+it will add a new android folder to your project
+
+then run > ionic capacitor run android
+it will first build your project (ng build) -> copy your project from www folder to the android folder and automatically launc android Studio with your project in it
+
+
+/////////////////////////////////////////
+CAPACITOR 
+//////////////////////////////////////
+TOOL DEVELOPED BY IONIC TEAM
+
+OUR WEB APP IS WRAPPED IN A NATIVE APP AND 
+THAT NATIVE APP RENDERS A WEB VIEW 
+WITH OUR APP IN IT 
+ON A MOBILE DEVICE
+THIS NATIVE WEB VIEW IS PROVIDED BY CAPACITOR OR CORDOVA 
+ 
+ CAPACITOR PROVIDES A BRIDGE TO NATIVE PLATFORM(ANDROID 
+ IOS) APIS. THEY GIVE US JAVASCRIPT METHODS WE CAN 
+ CALL WHICH UNDER THE HOOD WILL BASICALLY 
+ TRANSLATE TO NATIVE API CALLS 
+ THAT ALLOWS US TO 
+ TAP INTO THAT CAMERA
+ 1. CAMERA
+ 2. LOCATION
+ 3. PUSH
+ 4. STORAGE
+
+
+ before using any API check for device permission 
+ (https://capacitorjs.com/docs/apis/geolocation e.g. here we will 
+ before using geolocation api check for device 
+ permissions in the given link) and update
+ the corresponding XML files for permissions in android or ios folders in
+ your project
+ for ios: ios/app/app/info.plist file here add permission if not already addedd
+ for android: android/app/src/main/Androidmanifest.xml file
+
+

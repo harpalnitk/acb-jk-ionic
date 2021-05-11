@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Profile</ion-title>
+    <!-- buttons in toolbar must be inside ion-buttons -->
+    <!-- primary bushes button to the end -->
+    <ion-buttons slot="primary">
+      <ion-button (click)="onEditProfile()" [disabled]="!this.profile">
+        <!-- slot icon only tells ionic that there is only icone and no label -->
+        <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="6" offset-sm="3" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{profile?.firstName}}</ion-card-title>
+            <ion-card-subtitle> Email: {{profile?.email}} </ion-card-subtitle>
+          </ion-card-header>
+          <ion-img
+            class="profile-image"
+            [src]="profile?.photoURL ? profile?.photoURL: 'https://via.placeholder.com/150'"
+          ></ion-img>
+          <ion-card-content>
+            <!-- use ion-text if you just want to color the text and not ion-label -->
+            <ion-text color="tertiary">{{profile?.about}}</ion-text>
+            <!-- Notes in a List -->
+            <ion-list>
+              <app-view-contact [profile]="profile"></app-view-contact>
+              <app-view-address [profile]="profile"></app-view-address>
+            </ion-list>
+
+            <ion-button
+              expand="block"
+              color="secondary"
+              (click)="onEditProfile()"
+              [disabled]="!this.profile"
+              >Edit</ion-button
+            >
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

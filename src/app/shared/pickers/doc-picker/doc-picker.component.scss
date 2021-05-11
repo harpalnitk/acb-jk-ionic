@@ -1,0 +1,89 @@
+// .custom-file-input::-webkit-file-upload-button {
+//   visibility: hidden;
+// }
+
+// .custom-file-input::before {
+//   content: 'Select some files';
+//   display: inline-block;
+//   background: -webkit-linear-gradient(
+//     top,
+//     var(--ion-color-secondary),
+//     var(--ion-color-tertiary)
+//   );
+//   border: 1px solid var(--ion-color-primary);
+//   border-radius: 3px;
+//   padding: 5px 8px;
+//   outline: none;
+//   white-space: nowrap;
+//   user-select: none;
+//   -webkit-user-select: none;
+//   cursor: pointer;
+//   // text-shadow: 1px 1px #fff;
+//   // font-weight: 700;
+//   // font-size: 10pt;
+//   color: white;
+// }
+// .custom-file-input:hover::before {
+//   border-color: var(--ion-color-primary);
+// }
+// .custom-file-input:active::before {
+//   background: -webkit-linear-gradient(
+//     top,
+//     var(--ion-color-secondary),
+//     var(--ion-color-tertiary)
+//   );
+// }
+
+//width and height are set to 0.1px instead
+//of just 0px. Setting the property values to zero
+// ends up throwing the element out of tab party in
+//some browsers. And position: absolute guarantees
+//the element does not interfere with the sibling elements.
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: white;
+  background-color: var(--ion-color-primary);
+  display: inline-block;
+  padding: 0.9rem 8rem;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  margin: 0.4rem 0.2rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.inputfile + label:hover {
+  opacity: 0.9;
+}
+.inputfile + label {
+  cursor: pointer; /* "hand" cursor */
+}
+.inputfile:active + label {
+  opacity: 1;
+  transform: scale(0.9);
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+// using FastClick (a library for eliminating the 300ms
+//tap-pause on touch-capable devices) and have
+// plans to add some extra markup to the content of
+//a label, the button won’t work as it should,
+// unless you use pointer-events: none, respectively
+.inputfile + label * {
+  pointer-events: none;
+}

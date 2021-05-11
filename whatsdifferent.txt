@@ -1,0 +1,97 @@
+1. theme folder is there which is not there in normal angular project
+
+In angular.json file
+ in assets we import
+ {
+     "glob": "**/*",
+     "input":"node_modules/ionicons/dist/ionicons/svg",
+     "output":"./svg"
+ }
+
+
+ we also have a new file ionic.config.json file
+ in this file "type": "angular"
+ tells ionic that this is an angular project and thus
+ right build commands are executed
+
+ in package.json file we have ionic imports
+
+
+ ////////////////////////////////////////////////////
+ instead of using >ng g c recipes
+ USE >ionic generate
+ and select page in the list
+ and give name to page as page:recipes
+ NOTE: internally it uses ng generate only
+
+ instead of recipes.component.ts 
+ it gives recipes.page.ts 
+
+ for generating recipe-deetail page in the recipes folder
+ >ionic generate page recipes/recipe-detail
+
+ ///////////////////////////////////
+ app.component.html file hasi
+ ion-app wrapper around our angular application
+ <ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>
+
+which is the requirement of ionic
+
+also the router outlet is ion-router-outlet
+not angular's own router-outlet 
+///////////////////////////////////////
+ROUTING
+///////////////////////////////////////////\
+ionic consider all pages as stack of pages one above the other
+you view the page which is on top of the stack; but the other pages are still their
+just hidden
+ioninc watches for angular router
+it has listener on angular router
+
+ionic has IONINC STACK CONTROLLER
+ionic also caches pages which is different from angular
+
+in angular if we go forward the previous page is destroyed;
+but in ionic the old page is cached to the page stack
+
+we also have ionin-nav-controller which is an injectable service which essentially
+gives some utility methods
+
+/////////////////////////////////////////////////////
+Ionic-angular LIFE CYCLE
+
+Angular Components: ngOnInit,ngOnDestroy
+
+Ionic Pages: ionViewWillEnter(will run after ngOnInit), ionViewDidEnter
+
+when ionic page becomes visible from the stack ngOnInit will not be called
+instead ionViewWillEnter and ionViewDidEnter will be called...also when user migrates to another page
+ngOnDestroy will not be calles as page will be cached
+instead ionViewDidLeave will be called
+
+///////////////////////////////////////////////////
+authentication
+//////////////////////////////////////////////////
+
+servers which use RESTful API or GraphQL API session  
+can't be used for authentication
+
+we get TOKEN from the server
+we save TOKEN onlocal storage in browser
+any other request is sent with the same token
+
+////////////////////////////////////////
+SET UP FIREBASE AUTHENTICATION
+///////////////////////////////////////
+GO TO FIREBASE AUTHENTICATION 
+CHOOSE EMAIL/PASSWORD AS THE AUTHENTICATION METHOD
+
+GOOGLE FOR FIREBASE AUTH REST API TO SEE 
+WHAT ALL YOU CAN DO WITH THE AUTHENTICATION API 
+
+///////////////////////////////////////////
+STORAGE ON NATIVE DEVICE
+//////////////////////////////////////////
+Plugins.Storage.set({key:'authData', value: data};)

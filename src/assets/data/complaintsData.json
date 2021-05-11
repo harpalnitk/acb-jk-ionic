@@ -1,0 +1,46 @@
+{
+    "dept": [
+        {
+            "id": "1",
+            "name":"GAD-General Administration Department"
+  },
+  {
+    "id": "2",
+    "name":"RDD-Rural Development Department"
+},{
+    "id": "3",
+    "name":"RD-Revenue Department"
+},{
+    "id": "4",
+    "name":"PWD-Public Works Department"
+},{
+    "id": "5",
+    "name":"PHE-Public Health Engineering"
+},{
+    "id": "6",
+    "name":"PDD-Power DistributionDepartment"
+}
+    ],
+    "desig": [
+        {
+            "id":"1",
+            "name":"Under Secretary"
+        },
+        {
+            "id":"2",
+            "name":"Deputy Secretary"
+        },
+        {
+            "id":"3",
+            "name":"Additional Secretary"
+        },
+        {
+            "id":"4",
+            "name":"Special Secretary"
+        },
+        {
+            "id":"5",
+            "name":"Secretary"
+        }
+    ]
+}
