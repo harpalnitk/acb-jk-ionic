@@ -29,4 +29,7 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+/functions/acb-jk-ionic-firebase-sdk-key.json
+/functions/node_modules
+
 
